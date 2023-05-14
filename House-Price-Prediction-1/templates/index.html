@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title> USA House Price Prediction</title>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+    crossorigin="" />
+
+  <!-- Our CSS -->
+  <link rel="stylesheet" type="text/css" href="static/css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+</head>
+
+<body>
+<!-- Bootstrap Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="http://127.0.0.1:5000/">Home Prediction</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/page2">Visualization</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/page3">Price Prediction</a>
+        </li>
+        <!-- <li class="nav-item">
+          <a class="nav-link disabled">Disabled</a>
+        </li> -->
+      </ul>
+    </div>
+  </nav>
+
+  <div class="jumbotron">
+    <h1 class="display-4">We help you predict your home price</h1>
+    <p class="lead">What’s your home worth? Estimating the value of a property is necessary for many different reasons, including financing, sales, property insurance. And the simple answer to your home worth is the purchase price. Each real estate has unique features such as location, size, and other features which make up the home price. Therefore, the home price is an essential factor in selling a house. 
+      With realistic variables such as Roof material, Proximity to various conditions, Garage quality, Type of Sale, Exterior covering on the house (if more than one material), Exterior covering on house, Sale condition, Type of roof, Home functionality rating, and Physical locations within Ames city limits, we can predict the price of a home in Ames, Iowa. Our goal is to assist you in making renovation plans to compete in today’s market using a linear regression model.
+      <h5> Acknowledgments</h5>
+      The Ames Housing dataset was compiled by Dean De Cock for use in data science education.
+    </p>
+    <hr class="my-4">
+    <p>Our prediction model will automatically give you a future price.</p>
+    <a class="btn btn-primary btn-lg" href="http://127.0.0.1:5000/page3" role="button">Predict Home Price now!</a>
+  </div>
+
+
+  <ul class="list-group">
+    <li class="list-group-item"><H2>Team Members</H2></li>
+    <li class="list-group-item">Muhammed Shibil  <span class="badge badge-secondary">Data Cleaning, Building ML Model</span></li> 
+    <li class="list-group-item">Muhammed Munshid  <span class="badge badge-secondary">Deployment, Building ML Model, Visualization</span></li>
+    <li class="list-group-item">Yaser Arafath   <span class="badge badge-secondary">HTML, Data Cleaning</span></li> 
+  </ul>
+
+  <H1></H1>
+
+
+
+
+  <!-- The div that holds our map -->
+  <div id="map"></div>
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+    crossorigin=""></script>
+  <!-- D3 JavaScript -->
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <!-- Our JavaScript -->
+  <script type="text/javascript" src="static/js/logic.js"></script>
+</body>
+
+</html>

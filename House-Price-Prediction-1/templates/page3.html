@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Home Price Prediction</title>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+    crossorigin="" />
+
+  <!-- Our CSS -->
+  <link rel="stylesheet" type="text/css" href="static/css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="http://127.0.0.1:5000/">Home Prediction</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home </a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="/page2">Visualization</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/page3">Price Prediction<span class="sr-only">(current)</span></a>
+        <!-- </li>
+        <li class="nav-item">
+          <a class="nav-link disabled">Disabled</a>
+        </li> -->
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+  
+    <h2>Price Prediction
+    </h2>
+    <hr>
+
+    <div class="row" >
+      <div class="col-md-6">
+
+        <form method="POST" action="/model" role="form", name="houseform">
+
+          <div class = "form-group">
+            <div class="inputLat"><label for="RoofMatl">Roof Material: </label></div>
+            <select name="RoofMatl" id="RoofMatl" class="select">
+                <option value="CompShg">Standard (Composite) Shingle</option>
+                <option value="WdShngl">Wood Shingles</option>
+                <option value="Metal">Metal</option>
+                <option value="WdShake">Wood Shakes</option>
+                <option value="Membran">Membrane</option>
+                <option value="Tar&Grv">Gravel & Tar</option>
+                <option value="Roll">Roll</option>
+                <option value="ClyTile">Clay or Tile</option>
+            </select>
+            </div>
+
+          <div class = "form-group">
+            <div class="inputLat"><label for="Condition2">Proximity to various conditions: </label></div>
+            <select name="Condition2" id="Condition2" class="select">
+                <option value="Norm">Normal	</option>
+                <option value="Artery">Adjacent to arterial street</option>
+                <option value="RRNn">Within 200' of North-South Railroad</option>
+                <option value="PosN">Near positive off-site feature--park, greenbelt, etc.</option>
+                <option value="PosA">Adjacent to postive off-site feature</option>
+                <option value="RRAn">Adjacent to North-South Railroad</option>
+                <option value="RRAe">Adjacent to East-West Railroad</option>
+            </select>
+            </div>
+
+          <div class = "form-group">
+            <div class="inputLat"><label for="RoofMatl">Garage quality: </label></div>
+            <select name="GarageQual" id="GarageQual" class="select">
+                <option value="Gd">Good</option>
+                <option value="Fa">Fair</option>
+                <option value="TA">Typical/Average</option>
+                <option value="Po">Poor</option>
+            </select>
+            </div>
+
+          <div class = "form-group">
+            <div class="inputLat"><label for="SaleType">Type of sale: </label></div>
+            <select name="SaleType" id="SaleType" class="select">
+                <option value="WD">Warranty Deed - Conventional</option>
+                <option value="New">Home just constructed and sold</option>
+                <option value="ConLD">Contract Low Down</option>
+                <option value="ConLI">Contract Low Interest</option>
+                <option value="CWD">Warranty Deed - Cash</option>
+                <option value="ConLw">Contract Low Down payment and low interest</option>
+                <option value="Con">Contract 15% Down payment regular terms</option>
+                <option value="Oth">Other</option>
+            </select>
+            </div>
+
+          <div class = "form-group">
+            <div class="Exterior2nd"><label for="Exterior2nd">Exterior covering on house (if more than one material): </label></div>
+            <select name="Exterior2nd" id="Exterior2nd" class="select">
+                <option value="VinylSd">Vinyl Siding</option>
+                <option value="MetalSd">Metal Siding</option>
+                <option value="Wd Shng">Wood Siding</option>
+                <option value="HdBoard">Hard Board</option>
+                <option value="Plywood">Plywood</option>
+                <option value="Wd Sdng">Wood Siding</option>
+                <option value="CmentBd">Cement Board</option>
+                <option value="BrkFace">Brick Face</option>
+                <option value="Stucco">Stucco</option>
+                <option value="AsbShng">Asbestos Shingles</option>
+                <option value="Brk Cmn">Brick Common</option>
+                <option value="ImStucc">Imitation Stucco</option>
+                <option value="AsphShn">Asphalt Shingles</option>
+                <option value="Stone">Stone</option>
+                <option value="Other">Other</option>
+                <option value="CBlock">Cinder Block</option>
+            </select>
+            </div>
+
+          <div class = "form-group">
+            <div class="inputLat"><label for="Exterior1st">Exterior covering on house: </label></div>
+            <select name="Exterior1st" id="Exterior1st" class="select">
+              <option value="VinylSd">Vinyl Siding</option>
+              <option value="MetalSd">Metal Siding</option>
+              <option value="Wd Shng">Wood Siding</option>
+              <option value="HdBoard">Hard Board</option>
+              <option value="BrkFace">Brick Face</option>
+              <option value="WdShing">Wood Shingles</option>
+              <option value="CmentBd">Cement Board</option>
+              <option value="Plywood">Plywood</option>
+              <option value="AsbShng">Asbestos Shingles</option>
+              <option value="Stucco">Stucco</option>
+              <option value="BrkComn">Brick Common</option>
+              <option value="AsphShn">Asphalt Shingles</option>
+              <option value="Stone">Stone</option>
+              <option value="ImStucc">Imitation Stucco</option>
+              <option value="CBlock">Cinder Block</option>
+            </select>
+            </div>
+
+
+          <div class = "form-group">
+            <div class="inputLat"><label for="SaleCondition">Sale Condition: </label></div>
+            <select name="SaleCondition" id="SaleCondition" class="select">
+                <option value="Normal">Normal Sale</option>
+                <option value="Partial">Home was not completed when last assessed</option>
+                <option value="AdjLand">Adjoining Land Purchase</option>
+                <option value="Alloca">Allocation</option>
+                <option value="Family">Sale between family members</option>
+            </select>
+            </div>
+
+          <div class = "form-group">
+            <div class="inputLat"><label for="RoofStyle">RoofStyle: </label></div>
+            <select name="RoofStyle" id="RoofStyle" class="select">
+                <!-- <option value="Gable">Gable</option> -->
+                <option value="Hip">Hip</option>
+                <option value="Gambrel">Gambrel(Barn)</option>
+                <option value="Mansard">Mansard</option>
+                <option value="Shed">Shed</option>
+            </select>
+            </div>
+
+          <div class = "form-group">
+            <div class="inputLat"><label for="Functional">Home functionality: </label></div>
+            <select name="Functional" id="Functional" class="select">
+                <option value="Typ">Typical Functionality</option>
+                <option value="Min1">Minor Deductions 1</option>
+                <option value="Min2">Minor Deductions 2</option>
+                <option value="Mod">Moderate Deductions</option>
+                <option value="Maj2">Major Deductions 2</option>
+                <option value="Sev">Severely Damaged</option>
+            </select>
+            </div>
+
+          <div class = "form-group">
+            <div class="inputLat"><label for="Neighborhood">Neighborhood: </label></div>
+            <select name="Neighborhood" id="Neighborhood" class="select">
+                <option value="CollgCr">College Creek</option>
+                <option value="Veenker">Veenker</option>
+                <option value="Crawfor">Crawford</option>
+                <option value="NoRidge">Northridge</option>
+                <option value="Mitchel">Mitchel</option>
+                <option value="Somerst">Somerset</option>
+                <option value="NWAmes">Northwest Ames</option>
+                <option value="OldTown">Old Town</option>
+                <option value="BrkSide">Brookside</option>
+                <option value="Sawyer">Sawyer</option>
+                <option value="NridgHt">Northridge Heights</option>
+                <option value="NAmes">Northwest Ames</option>
+                <option value="SawyerW">Sawyer West</option>
+                <option value="IDOTRR">Iowa DOT and Rail Road</option>
+                <option value="MeadowV">Meadow Village</option>
+                <option value="Edwards">Edwards</option>
+                <option value="Timber">Timber</option>
+                <option value="Gilbert">Gilbert</option>
+                <option value="StoneBr">Stone Brook</option>
+                <option value="ClearCr">Clear Creek</option>
+                <option value="NPkVill">Northpark Villa</option>
+                <option value="Blmngtn">Bloomington Heights</option>
+                <option value="BrDale">Briardale</option>
+                <option value="Blueste">Bluestem</option>
+            </select>
+            </div>
+
+
+          <br>
+          <input type="submit" value="Submit" class="btn btn-primary">
+
+        </form>
+
+      </div>
+
+      <div class="col-md-6">
+
+        {% if prediction %} 
+          <div class="prediction">
+            <H1> <span class= "badge badge-secondary">Your predicted price is: {{prediction}}</H1></span>
+          </div>
+        {% endif %}
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- The div that holds our map -->
+  <div id="map"></div>
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+    crossorigin=""></script>
+  <!-- D3 JavaScript -->
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <!-- Our JavaScript -->
+  <script type="text/javascript" src="static/js/logic.js"></script>
+</body>
+
+</html>
